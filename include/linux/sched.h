@@ -1372,7 +1372,7 @@ struct task_struct {
 	struct task_struct		*simple_lmk_next;
 #endif
 
-#ifdef CONFIG_FUSE_SHORTCIRCUIT
+ #ifdef CONFIG_FUSE_SHORTCIRCUIT
 	int fuse_boost;
 #endif
 
