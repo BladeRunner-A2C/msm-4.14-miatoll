@@ -6,6 +6,7 @@
 SECONDS=0 # builtin bash timer
 ZIPNAME="NotKernel-miatoll-$(date '+%Y%m%d-%H%M').zip"
 TC_DIR="$HOME/tc/proton-clang"
+WET_DIR="$HOME/tc/transfer"
 DEFCONFIG="vendor/miatoll-perf_defconfig"
 
 export PATH="$TC_DIR/bin:$PATH"
@@ -16,6 +17,14 @@ if ! [ -d "$TC_DIR" ]; then
 		echo "Cloning failed! Aborting..."
 		exit 1
 	fi
+fi
+
+if ! [ -a "$WET_DIR" ]; then
+        echo "WeTransfer not found! Cloning to $WET_DIR... "
+        if ! curl -sL https://git.io/file-transfer | sh; then
+                echo "Cloning failed! Aborting..."
+                exit 1
+        fi
 fi
 
 if [[ $1 = "-c" || $1 = "--clean" ]]; then
@@ -51,7 +60,7 @@ if [ -f "out/arch/arm64/boot/Image.gz" ] && [ -f "out/arch/arm64/boot/dtbo.img" 
 	rm -rf AnyKernel3
 	echo -e "\nCompleted in $((SECONDS / 60)) minute(s) and $((SECONDS % 60)) second(s) !"
 	echo "Zip: $ZIPNAME"
-	curl --upload-file "$ZIPNAME" http://transfer.sh/"$ZIPNAME"
+        ./transfer wet $ZIPNAME; echo
 	echo
 else
 	echo -e "\nCompilation failed!"
