@@ -4,7 +4,7 @@
 # Copyright (C) 2020-2021 Adithya R.
 
 SECONDS=0 # builtin bash timer
-ZIPNAME="OathKeeper-r1-miatoll-$(date '+%Y%m%d-%H%M').zip"
+ZIPNAME="Spectre-miatoll-$(date '+%Y%m%d-%H%M').zip"
 TC_DIR="$HOME/tc/clang-r445002"
 DEFCONFIG="vendor/miatoll-perf_defconfig"
 
