@@ -33,15 +33,15 @@ mkdir -p out
 make O=out ARCH=arm64 $DEFCONFIG
 
 echo -e "\nStarting compilation...\n"
-make -j"$(nproc --all)" O=out ARCH=arm64 CC=clang LD=ld.lld AR=llvm-ar NM=llvm-nm OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump STRIP=llvm-strip CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_ARM32=arm-linux-gnueabi- Image.gz dtbo.img
+make -j"$(nproc --all)" O=out ARCH=arm64 CC=clang LD=ld.lld AR=llvm-ar NM=llvm-nm OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump STRIP=llvm-strip CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_ARM32=arm-linux-gnueabi- Image dtbo.img
 
-if [ -f "out/arch/arm64/boot/Image.gz" ] && [ -f "out/arch/arm64/boot/dtbo.img" ]; then
+if [ -f "out/arch/arm64/boot/Image" ] && [ -f "out/arch/arm64/boot/dtbo.img" ]; then
 	echo -e "\nKernel compiled succesfully! Zipping up...\n"
 	if ! git clone -q https://github.com/BladeRunner-A2C/AnyKernel3 -b miatoll; then
 		echo -e "\nCloning AnyKernel3 repo failed! Aborting..."
 		exit 1
 	fi
-	cp out/arch/arm64/boot/Image.gz AnyKernel3
+	cp out/arch/arm64/boot/Image AnyKernel3
 	cp out/arch/arm64/boot/dtbo.img AnyKernel3
 	cp out/arch/arm64/boot/dts/qcom/cust-atoll-ab.dtb AnyKernel3/dtb
 	rm -f ./*zip
