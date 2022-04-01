@@ -5,7 +5,7 @@
 
 SECONDS=0 # builtin bash timer
 ZIPNAME="Spectre-miatoll-$(date '+%Y%m%d-%H%M').zip"
-TC_DIR="$HOME/tc/clang-r445002"
+TC_DIR="$HOME/tc/clang-proton"
 DEFCONFIG="vendor/miatoll-perf_defconfig"
 
 export KBUILD_BUILD_USER=bond
@@ -13,8 +13,8 @@ export KBUILD_BUILD_HOST=hornyserver
 export PATH="$TC_DIR/bin:$PATH"
 
 if ! [ -d "$TC_DIR" ]; then
-	echo "Clang compiler not found! Cloning to $TC_DIR..."
-	if ! git clone -q https://gitlab.com/crdroidandroid/android_prebuilts_clang_host_linux-x86_clang-r445002 --depth=1 --single-branch "$TC_DIR"; then
+	echo "Proton clang not found! Cloning to $TC_DIR..."
+	if ! git clone -q --depth=1 --single-branch https://github.com/kdrag0n/proton-clang "$TC_DIR"; then
 		echo "Cloning failed! Aborting..."
 		exit 1
 	fi
